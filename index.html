@@ -34,9 +34,13 @@ text-align:left;box-shadow:0 8px 30px rgba(0,0,0,.3)}
 .heart{position:fixed;bottom:-30px;font-size:22px;pointer-events:none;animation:rise linear forwards;z-index:9}
 @keyframes rise{to{transform:translateY(-110vh) rotate(30deg);opacity:0}}
 small{opacity:.7;margin-top:14px}
+.back{display:none;position:fixed;top:14px;left:14px;z-index:20;padding:10px 18px;border:none;border-radius:30px;
+font-family:inherit;font-size:1rem;cursor:pointer;color:#fff;background:rgba(255,255,255,.2);backdrop-filter:blur(6px)}
+.back.show{display:block}
 </style>
 </head>
 <body>
+<button class="back" id="backBtn" onclick="goBack()">← ආපසු</button>
 
 <!-- 1. Intro -->
 <section id="s1" class="active">
@@ -114,7 +118,12 @@ function go(n){
   document.getElementById('s'+cur).classList.remove('active');
   document.getElementById('s'+n).classList.add('active');
   cur = n; window.scrollTo(0,0);
+  document.getElementById('backBtn').classList.toggle('show', n > 1);
   if(n === 4 && !typedStarted){ typedStarted = true; typeText(); }
+}
+
+function goBack(){
+  if(cur > 1){ go(cur - 1); }
 }
 
 function start(){
